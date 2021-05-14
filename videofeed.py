@@ -6,7 +6,7 @@ from PIL import Image
 class VideoFeed:
 
     def __init__(self,mode=1,name="w1",capture=1):
-        print name
+        print(name)
         self.camera_index = 0
         self.name = name
         if capture == 1:
