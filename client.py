@@ -1,5 +1,5 @@
 import socket, videosocket
-import StringIO
+import io
 from videofeed import VideoFeed
 import sys
 
@@ -9,7 +9,7 @@ class Client:
         self.client_socket.connect((ip_addr, 6000))
         self.vsock = videosocket.videosocket (self.client_socket)
         self.videofeed = VideoFeed(1,"client",1)
-        self.data = StringIO.StringIO()
+        self.data = io.StringIO()
 
     def connect(self):
         while True:
