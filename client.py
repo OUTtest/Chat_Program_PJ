@@ -23,6 +23,6 @@ if __name__ == "__main__":
     if len(sys.argv) == 2:
         ip_addr = sys.argv[1]
 
-    print "Connecting to " + ip_addr + "...."
+    print ("Connecting to " + ip_addr + "....")
     client = Client(ip_addr)
     client.connect()
