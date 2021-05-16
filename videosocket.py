@@ -46,6 +46,7 @@ class videosocket:
             metaArray.append(chunk)
             metarec += len(chunk)
         lengthstr= ''.join(metaArray[0].decode())
+        print(type(lengthstr))
         length=int(lengthstr)
 
         while totrec<length :
