@@ -4,15 +4,15 @@ from videofeed import VideoFeed
 class Server:
     def __init__(self):
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.server_socket.bind(("localhost", 6000))
+        self.server_socket.bind(("", 6000))
         self.server_socket.listen(5)
         self.videofeed = VideoFeed(1,"server",1)
-        print("TCPServer Waiting for client on port 6000")
+        print "TCPServer Waiting for client on port 6000"
 
     def start(self):
-        while True:
+        while 1:
             client_socket, address = self.server_socket.accept()
-            print("I got a connection from ", address)
+            print "I got a connection from ", address
             vsock = videosocket.videosocket(client_socket)
             while True:
                 frame=vsock.vreceive()
