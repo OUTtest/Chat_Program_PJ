@@ -7,7 +7,7 @@ def recv_message(sock):
         print(msg.decode())
         
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(("127.0.0.1", 13000))
+sock.connect(("127.0.0.1", 12000))
 
 th = Thread(target=recv_message, args=(sock,))
 th.daemon = True
@@ -19,5 +19,4 @@ while True:
     
     if msg == "/bye":
         break
-
 sock.close()
