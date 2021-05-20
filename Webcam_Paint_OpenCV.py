@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 from collections import deque
 
-# Define the upper and lower boundaries for a color to be considered "Blue"
+# Define the upper and lower boundaries for a color to be considered "Blue"  ->  포인트 색(파랑) 범위 지정 
 blueLower = np.array([100, 60, 60])
 blueUpper = np.array([140, 255, 255])
 
@@ -20,10 +20,14 @@ gindex = 0
 rindex = 0
 yindex = 0
 
+x1, y1, z1 = map(int, input('첫번째 사용할 색을 입력하세요(0~255): ').split())      # 원하는 색 입력 추가 기능
+x2, y2, z2 = map(int, input('두번째 사용할 색을 입력하세요(0~255): ').split())
+x3, y3, z3 = map(int, input('세번째 사용할 색을 입력하세요(0~255): ').split())
+x4, y4, z4 = map(int, input('네번째 사용할 색을 입력하세요(0~255): ').split())
 colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (0, 255, 255)]
 colorIndex = 0
 
-# Setup the Paint interface
+# Setup the Paint interface  -> 화면에 보이는 사격형 입력
 paintWindow = np.zeros((471,636,3)) + 255
 paintWindow = cv2.rectangle(paintWindow, (40,1), (140,65), (0,0,0), 2)
 paintWindow = cv2.rectangle(paintWindow, (160,1), (255,65), colors[0], -1)
@@ -41,7 +45,7 @@ cv2.namedWindow('Paint', cv2.WINDOW_AUTOSIZE)
 # Load the video
 camera = cv2.VideoCapture(0)
 
-# Keep looping
+# Keep looping -> 초인트가 화면안에 존재하면 선이 그려짐
 while True:
     # Grab the current paintWindow
     (grabbed, frame) = camera.read()
@@ -60,7 +64,7 @@ while True:
     cv2.putText(frame, "RED", (420, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
     cv2.putText(frame, "YELLOW", (520, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150,150,150), 2, cv2.LINE_AA)
 
-    # Check to see if we have reached the end of the video
+    # Check to see if we have reached the end of the video -> 화면에 포인트가 나가면 선이 그려지지 않음
     if not grabbed:
         break
 
@@ -71,8 +75,8 @@ while True:
     blueMask = cv2.dilate(blueMask, kernel, iterations=1)
 
     # Find contours in the image
-    (_, cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL,
-    	cv2.CHAIN_APPROX_SIMPLE)
+    (_, cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL,                                                 # 오류 부분 -> (_, cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL 코드 실행시 받는값이 3개인데 실제 입력값은 2개여서 오류 발생
+    	cv2.CHAIN_APPROX_SIMPLE)                                                                                        # 수정 코드 -> (cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL 입력 받는 값을 2개로 바꿔서 오류 수정
     center = None
 
     # Check to see if any contours were found
@@ -143,7 +147,7 @@ while True:
     cv2.imshow("Tracking", frame)
     cv2.imshow("Paint", paintWindow)
 
-	# If the 'q' key is pressed, stop the loop
+	# If the 'q' key is pressed, stop the loop -> q를 누르면 프로그램 종료 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
