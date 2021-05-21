@@ -20,11 +20,11 @@ gindex = 0
 rindex = 0
 yindex = 0
 
-x1, y1, z1 = map(int, input('첫번째 사용할 색을 입력하세요(0~255): ').split())      # 원하는 색 입력 추가 기능
+x1, y1, z1 = map(int, input('첫번째 사용할 색을 입력하세요(0~255): ').split())      # 원하는 색 입력 추가 기능 RGB 코드 입력으로 색 정함
 x2, y2, z2 = map(int, input('두번째 사용할 색을 입력하세요(0~255): ').split())
 x3, y3, z3 = map(int, input('세번째 사용할 색을 입력하세요(0~255): ').split())
 x4, y4, z4 = map(int, input('네번째 사용할 색을 입력하세요(0~255): ').split())
-colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (0, 255, 255)]
+colors = [(x1,y1, z1), (x2, y2, z2), (x3, y3, z3), (x4, y4, z4)]
 colorIndex = 0
 
 # Setup the Paint interface  -> 화면에 보이는 사격형 입력
@@ -52,17 +52,17 @@ while True:
     frame = cv2.flip(frame, 1)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    # Add the coloring options to the frame
+    # Add the coloring options to the frame -> 화면에 표시되는 색상 사각형 생성 코드
     frame = cv2.rectangle(frame, (40,1), (140,65), (122,122,122), -1)
     frame = cv2.rectangle(frame, (160,1), (255,65), colors[0], -1)
     frame = cv2.rectangle(frame, (275,1), (370,65), colors[1], -1)
     frame = cv2.rectangle(frame, (390,1), (485,65), colors[2], -1)
     frame = cv2.rectangle(frame, (505,1), (600,65), colors[3], -1)
     cv2.putText(frame, "CLEAR ALL", (49, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "BLUE", (185, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "GREEN", (298, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "RED", (420, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "YELLOW", (520, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150,150,150), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 1", (185, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 2", (298, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 3", (420, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 4", (520, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150,150,150), 2, cv2.LINE_AA)
 
     # Check to see if we have reached the end of the video -> 화면에 포인트가 나가면 선이 그려지지 않음
     if not grabbed:
@@ -75,8 +75,8 @@ while True:
     blueMask = cv2.dilate(blueMask, kernel, iterations=1)
 
     # Find contours in the image
-    (_, cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL,                                                 # 오류 부분 -> (_, cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL 코드 실행시 받는값이 3개인데 실제 입력값은 2개여서 오류 발생
-    	cv2.CHAIN_APPROX_SIMPLE)                                                                                        # 수정 코드 -> (cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL 입력 받는 값을 2개로 바꿔서 오류 수정
+    (cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL,                                                 # 오류 부분 -> (_, cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL 코드 실행시 받는값이 3개인데 실제 입력값은 2개여서 오류 발생
+    	cv2.CHAIN_APPROX_SIMPLE)                                                                                     # 수정 코드 -> (cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL 입력 받는 값을 2개로 바꿔서 오류 수정
     center = None
 
     # Check to see if any contours were found
