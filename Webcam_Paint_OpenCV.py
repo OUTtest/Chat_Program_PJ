@@ -20,10 +20,15 @@ gindex = 0
 rindex = 0
 yindex = 0
 
-x1, y1, z1 = map(int, input('첫번째 사용할 색을 입력하세요(0~255): ').split())      # 원하는 색 입력 추가 기능 RGB 코드 입력으로 색 정함
+'''x1, y1, z1 = map(int, input('첫번째 사용할 색을 입력하세요(0~255): ').split())      # 원하는 색 입력 추가 기능 RGB 코드 입력으로 색 정함
 x2, y2, z2 = map(int, input('두번째 사용할 색을 입력하세요(0~255): ').split())
 x3, y3, z3 = map(int, input('세번째 사용할 색을 입력하세요(0~255): ').split())
-x4, y4, z4 = map(int, input('네번째 사용할 색을 입력하세요(0~255): ').split())
+x4, y4, z4 = map(int, input('네번째 사용할 색을 입력하세요(0~255): ').split())'''
+
+print('|1. Black | 2. Blue | 3. Yellow | 4. Red | White |')  # 몇가지 잘 사용하는 색을 저장해둔 뒤 시작할때 불러올수 있는 코드 (진행중)
+ic = int(input('첫번째 색을 입력하세요....'))
+if ic == '1':
+    x1=0, y1=0, z1=0
 colors = [(x1,y1, z1), (x2, y2, z2), (x3, y3, z3), (x4, y4, z4)]
 colorIndex = 0
 
