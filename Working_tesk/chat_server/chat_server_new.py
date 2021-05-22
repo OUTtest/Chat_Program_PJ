@@ -36,7 +36,7 @@ class MyHandler(socketserver.BaseRequestHandler):
 class ChatServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     pass
     
-server = ChatServer(("", 12000), MyHandler)
+server = ChatServer(("", 10000), MyHandler)
 server.serve_forever()
 server.shutdown()
 server.server_close()

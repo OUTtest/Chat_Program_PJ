@@ -45,22 +45,21 @@ c_button.grid(row=0, column= 2, padx=5, pady=5)
 width = 280
 height = 45
 
-screen_width = w_connect.winfo_screenwidth()
+screen_width = w_connect.winfo_screenwidth()            #컴퓨터 해상도 계산
 screen_height = w_connect.winfo_screenheight()
 
-x = int((screen_width / 2) - (width / 2))
+x = int((screen_width / 2) - (width / 2))               #컴퓨터 해상도 계산하여 가운데의 좌표값을 계산
 y = int((screen_height / 2) - (height / 2))
 
-w_connect.geometry('{}x{}+{}+{}'.format(width, height, x, y))
+w_connect.geometry('{}x{}+{}+{}'.format(width, height, x, y))       #창을 실행하였을때 실행할 위치를 지정
 w_connect.mainloop()
+
+
+# 채팅 구문
 
 window = tkinter.Tk()
 window.title("클라이언트")
 
-
-
-
-# 채팅 구문
 cg_frame = tkinter.Frame(window)
 scroll = tkinter.Scrollbar(cg_frame)
 scroll.pack(side=tkinter.RIGHT, fill=tkinter.Y)

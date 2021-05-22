@@ -1,4 +1,5 @@
 import socket
+import sys
 from threading import Thread
 
 def recv_message(sock):
@@ -7,7 +8,8 @@ def recv_message(sock):
         print(msg.decode())
         
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.connect(("127.0.0.1", 12000))
+
+sock.connect(("192.168.43.8", 10000))
 
 th = Thread(target=recv_message, args=(sock,))
 th.daemon = True
