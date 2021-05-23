@@ -20,15 +20,143 @@ gindex = 0
 rindex = 0
 yindex = 0
 
-'''x1, y1, z1 = map(int, input('첫번째 사용할 색을 입력하세요(0~255): ').split())      # 원하는 색 입력 추가 기능 RGB 코드 입력으로 색 정함
-x2, y2, z2 = map(int, input('두번째 사용할 색을 입력하세요(0~255): ').split())
-x3, y3, z3 = map(int, input('세번째 사용할 색을 입력하세요(0~255): ').split())
-x4, y4, z4 = map(int, input('네번째 사용할 색을 입력하세요(0~255): ').split())'''
+print('|1. Black | 2. Blue | 3. Yellow | 4. Red | 5. Sky | 6. Purple | 7. Lime | 8. Pink |')    # 몇가지 색을 저장해둔 뒤 시작할때 불러올수 있는 코드
+co1 = int(input('첫번째 색을 입력하세요.... '))      # 1~8 번까지 색 입력 코드 추가
+if co1 == 1:
+    x1=0
+    y1=0
+    z1=0
+elif co1 == 2:
+    x1=0
+    y1=0
+    z1=255
+elif co1 == 3:
+    x1=0
+    y1=255
+    z1=255
+elif co1 == 4:
+    x1=255
+    y1=0
+    z1=0
+elif co1 ==5:
+    x1=255
+    y1=204
+    z1=0
+elif co1 ==6:
+    x1=255
+    y1=0
+    z1=150
+elif co1 ==7:
+    x1=0
+    y1=255
+    z1=204
+elif co1 ==8:
+    x1=204
+    y1=0
+    z1=255
 
-print('|1. Black | 2. Blue | 3. Yellow | 4. Red | White |')  # 몇가지 잘 사용하는 색을 저장해둔 뒤 시작할때 불러올수 있는 코드 (진행중)
-ic = int(input('첫번째 색을 입력하세요....'))
-if ic == '1':
-    x1=0, y1=0, z1=0
+co2 = int(input('두번째 색을 입력하세요.... '))
+if co2 == 1:
+    x2=0
+    y2=0
+    z2=0
+elif co2 == 2:
+    x2=0
+    y2=0
+    z2=255
+elif co2 == 3:
+    x2=0
+    y2=255
+    z2=255
+elif co2 == 4:
+    x2=255
+    y2=0
+    z2=0
+elif co2 == 5:
+    x2=255
+    y2=204
+    z2=0
+elif co2 == 6:
+    x2=255
+    y2=0
+    z2=105
+elif co2 == 7:
+    x2=0
+    y2=255
+    z2=204
+elif co2 == 8:
+    x2=204
+    y2=0
+    z2=255
+
+co3 = int(input('세번째 색을 입력하세요.... '))
+fi co3 == 1:
+    x3=0
+    y3=0
+    z3=0
+elif co3 == 2:
+    x3=0
+    y3=0
+    z3=255
+elif co3 == 3:
+    x3=0
+    y3=255
+    z3=255
+elif co3 == 4:
+    x3=255
+    y3=0
+    z3=0
+elif co3 == 5:
+    x3=255
+    y3=204
+    z3=0
+elif co3 == 6:
+    x3=255
+    y3=0
+    z3=105
+elif co3 == 7:
+    x3=0
+    y3=255
+    z3=204
+elif co3 == 8:
+    x3=204
+    y3=0
+    z3=255
+
+co4 = int(input('네번째 색을 입력하세요....'))
+if co4 == 1:
+    x4=0
+    y4=0
+    z4=0
+elif co4 == 2:
+    x4=0
+    y4=0
+    z4=255
+elif co4 == 3:
+    x4=0
+    y4=255
+    z4=255
+elif co4 == 4:
+    x4=255
+    y4=0
+    z4=0
+elif co4 == 5:
+    x4=255
+    y4=204
+    z4=0
+elif co4 == 6:
+    x4=255
+    y4=0
+    z4=105
+elif co4 == 7:
+    x4=0
+    y4=255
+    z4-204
+elif co4 == 8:
+    x4=204
+    y4=0
+    z4=255
+
 colors = [(x1,y1, z1), (x2, y2, z2), (x3, y3, z3), (x4, y4, z4)]
 colorIndex = 0
 
