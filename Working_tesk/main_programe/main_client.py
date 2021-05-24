@@ -1,45 +1,40 @@
 import tkinter
 import socket
-import threading
+from threading import Thread
+import cv2
 import zmq
 import base64
 import numpy as np
-import cv2
+
+IP = ""
+PORT = 0
 
 class Viewer:
     context = zmq.Context()
     footage_socket = context.socket(zmq.SUB)
 
-    def __init__(self,address):                                            # 처음 실행할때 인자 값으로 주소값을 받는다.
-        self.footage_socket.connect('tcp://'+address+':5555')                   
+    def __init__(self):
+        self.footage_socket.connect('tcp://'+IP+':5555')
         self.footage_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
 
     def video(self):
         while True:
             try:
-                frame = self.footage_socket.recv_string()                   # 해당 서버에서 전송한 값을 받는다.
-                img = base64.b64decode(frame)                               # Base64 파일을 디코드 한다.
-                npimg = np.fromstring(img, dtype=np.uint8)                  # 디코드한 파일을 Array형태의 데이터로 전환
-                source = cv2.imdecode(npimg, 1)                             # Array형태의 데이터를 이미지로 전환
-                cv2.imshow("Stream", source)                                # Stream이란 이름으로 이미지 출력
+                frame = self.footage_socket.recv_string()
+                img = base64.b64decode(frame)
+                npimg = np.fromstring(img, dtype=np.uint8)
+                source = cv2.imdecode(npimg, 1)
+                cv2.imshow("Stream", source)
                 cv2.waitKey(1)
 
-            except KeyboardInterrupt:                                       # KeyboardInterrupt가 입력되면 모든 창을 닫는다.
+            except KeyboardInterrupt:
                 cv2.destroyAllWindows()
                 break
 
     def run(self):
-        videoThread=threading.Thread(target=self.video)
+        videoThread=Thread(target=self.video)
         videoThread.daemon=True
         videoThread.start()
-
-if '__main__'== __name__ :
-    # view = Viewer
-    # view.run()
-    pass
-
-IP = ""
-PORT = 0
 
 def recv_message(sock):
     while True:
@@ -116,8 +111,11 @@ send_button.pack(side=tkinter.RIGHT, fill=tkinter.X, padx=5, pady=5)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((IP, PORT))
 
-th = threading.Thread(target=recv_message, args=(sock,))
+th = Thread(target=recv_message, args=(sock,))
 th.daemon = True
 th.start()
+
+watch = Viewer()
+watch.run()
 
 window.mainloop()

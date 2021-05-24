@@ -1,6 +1,7 @@
 import socketserver
 
 class MyHandler(socketserver.BaseRequestHandler):
+    print("server is running")
     users = {}
     
     def send_all_message(self, msg):
