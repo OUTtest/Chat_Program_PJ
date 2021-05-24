@@ -20,7 +20,17 @@ gindex = 0
 rindex = 0
 yindex = 0
 
-colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (0, 255, 255)]
+print('|1. Black | 2. Blue | 3. Yellow | 4. Red | 5. Sky | 6. Purple | 7. Lime | 8. Pink |')
+selection = input('4가지의 색을 입력하세요...')
+selc = list()
+
+[selc.append(int(selection[x])) for x in range(4)]
+colors = {1:[0,0,0], 2:[0,0,255], 3:[0,255,255], 4:[255,0,0], 5:[255,204,0], 6:[255,0,150], 7:[0,255,204], 8:[204,0,255]}
+
+for a in range(4):
+    colors[selc[a]]
+
+colors = ((colors[selc[0]]), (colors[selc[1]]), (colors[selc[2]]), (colors[selc[3]]))
 colorIndex = 0
 
 # Setup the Paint interface
@@ -71,7 +81,7 @@ while True:
     blueMask = cv2.dilate(blueMask, kernel, iterations=1)
 
     # Find contours in the image
-    (_, cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL,
+    (cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL,
     	cv2.CHAIN_APPROX_SIMPLE)
     center = None
 
