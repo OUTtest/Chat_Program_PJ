@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 from collections import deque
 
-# Define the upper and lower boundaries for a color to be considered "Blue"
+# Define the upper and lower boundaries for a color to be considered "Blue"  ->  포인트 색(파랑) 범위 지정 
 blueLower = np.array([100, 60, 60])
 blueUpper = np.array([140, 255, 255])
 
@@ -20,6 +20,7 @@ gindex = 0
 rindex = 0
 yindex = 0
 
+
 print('|1. Black | 2. Blue | 3. Yellow | 4. Red | 5. Sky | 6. Purple | 7. Lime | 8. Pink |')
 selection = input('4가지의 색을 입력하세요...')
 selc = list()
@@ -33,7 +34,7 @@ for a in range(4):
 colors = ((colors[selc[0]]), (colors[selc[1]]), (colors[selc[2]]), (colors[selc[3]]))
 colorIndex = 0
 
-# Setup the Paint interface
+# Setup the Paint interface  -> 화면에 보이는 사격형 입력
 paintWindow = np.zeros((471,636,3)) + 255
 paintWindow = cv2.rectangle(paintWindow, (40,1), (140,65), (0,0,0), 2)
 paintWindow = cv2.rectangle(paintWindow, (160,1), (255,65), colors[0], -1)
@@ -51,26 +52,26 @@ cv2.namedWindow('Paint', cv2.WINDOW_AUTOSIZE)
 # Load the video
 camera = cv2.VideoCapture(0)
 
-# Keep looping
+# Keep looping -> 초인트가 화면안에 존재하면 선이 그려짐
 while True:
     # Grab the current paintWindow
     (grabbed, frame) = camera.read()
     frame = cv2.flip(frame, 1)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    # Add the coloring options to the frame
+    # Add the coloring options to the frame -> 화면에 표시되는 색상 사각형 생성 코드
     frame = cv2.rectangle(frame, (40,1), (140,65), (122,122,122), -1)
     frame = cv2.rectangle(frame, (160,1), (255,65), colors[0], -1)
     frame = cv2.rectangle(frame, (275,1), (370,65), colors[1], -1)
     frame = cv2.rectangle(frame, (390,1), (485,65), colors[2], -1)
     frame = cv2.rectangle(frame, (505,1), (600,65), colors[3], -1)
     cv2.putText(frame, "CLEAR ALL", (49, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "BLUE", (185, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "GREEN", (298, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "RED", (420, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "YELLOW", (520, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150,150,150), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 1", (185, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 2", (298, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 3", (420, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 4", (520, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150,150,150), 2, cv2.LINE_AA)
 
-    # Check to see if we have reached the end of the video
+    # Check to see if we have reached the end of the video -> 화면에 포인트가 나가면 선이 그려지지 않음
     if not grabbed:
         break
 
@@ -153,10 +154,11 @@ while True:
     cv2.imshow("Tracking", frame)
     cv2.imshow("Paint", paintWindow)
 
-	# If the 'q' key is pressed, stop the loop
+	# If the 'q' key is pressed, stop the loop -> q를 누르면 프로그램 종료 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
 # Cleanup the camera and close any open windows
 camera.release()
 cv2.destroyAllWindows()
+
