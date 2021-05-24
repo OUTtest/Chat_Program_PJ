@@ -68,8 +68,22 @@ class Streamer:
         self.footage_socket.bind('tcp://*:5555')
 
     def video(self):
-        while True:
+         while True:
             try:
+                grabbed, frame = self.camera.read()  # grab the current frame
+                frame = cv2.resize(frame, (640, 480))  # resize the frame
+                encoded, buffer = cv2.imencode('.jpg', frame)
+                jpg_as_text = base64.b64encode(buffer)
+                self.footage_socket.send(jpg_as_text)
+
+            except KeyboardInterrupt:
+                self.camera.release()
+                cv2.destroyAllWindows()
+                break
+
+    def paint(self):
+        while True:
+            
                 blueLower = np.array([100, 60, 60])
                 blueUpper = np.array([140, 255, 255])
 
@@ -172,18 +186,9 @@ class Streamer:
                                     continue
                                 cv2.line(frame, points[i][j][k - 1], points[i][j][k], colors[i], 2)
 
-                    frame = cv2.resize(frame, (640, 480))                
-                    encoded, buffer = cv2.imencode('.jpg', frame)
-                    jpg_as_text = base64.b64encode(buffer)
-                    self.footage_socket.send(jpg_as_text)
                     cv2.imshow("Tracking", frame)
                     cv2.waitKey(1)
-
-            except KeyboardInterrupt:
-                self.camera.release()
-                cv2.destroyAllWindows()
-                break
-
+  
     def run(self):
         videoThread=threading.Thread(target=self.video)
         videoThread.daemon=True
@@ -194,7 +199,7 @@ class Viewer:
     footage_socket = context.socket(zmq.SUB)
 
     def __init__(self,address):
-        self.footage_socket.connect('tcp://'+address+':5555')
+        self.footage_socket.connect('tcp://'+'127.0.0.1'+':5555')
         self.footage_socket.setsockopt_string(zmq.SUBSCRIBE, np.unicode(''))
 
     def video(self):
@@ -208,6 +213,7 @@ class Viewer:
                 cv2.waitKey(1)
 
             except KeyboardInterrupt:
+                self.camera.release()
                 cv2.destroyAllWindows()
                 break
 
@@ -219,10 +225,9 @@ class Viewer:
 if(len(sys.argv)>1):
     viewer=Viewer(sys.argv[1])
     viewer.run()
-    # client=ChatClient(sys.argv[1],sys.argv[2])
+    client=ChatClient(sys.argv[1],sys.argv[2])
 else:
     streamer=Streamer()
-    streamer.video()
-    # streamer.run()
-    # server=ChatServer()
-    # server.run()
+    streamer.run()
+    server=ChatServer()
+    server.run()
