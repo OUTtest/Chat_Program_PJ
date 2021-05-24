@@ -6,7 +6,7 @@
 
 NumPy, OpenCV, ZeroMQ, Tkinter, socket
 
-## Usage
+## 사용방법
 
 server: 서버프로그램은 명령창에서 그대로 실행하면 서버가 실행 되면서 자신의 캠이 방송됩니다.
 
