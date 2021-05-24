@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 from collections import deque
 
-# Define the upper and lower boundaries for a color to be considered "Blue"
+# Define the upper and lower boundaries for a color to be considered "Blue"  ->  포인트 색(파랑) 범위 지정 
 blueLower = np.array([100, 60, 60])
 blueUpper = np.array([140, 255, 255])
 
@@ -20,10 +20,147 @@ gindex = 0
 rindex = 0
 yindex = 0
 
-colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (0, 255, 255)]
+print('|1. Black | 2. Blue | 3. Yellow | 4. Red | 5. Sky | 6. Purple | 7. Lime | 8. Pink |')    # 몇가지 색을 저장해둔 뒤 시작할때 불러올수 있는 코드
+co1 = int(input('첫번째 색을 입력하세요.... '))      # 1~8 번까지 색 입력 코드 추가
+if co1 == 1:
+    x1=0
+    y1=0
+    z1=0
+elif co1 == 2:
+    x1=0
+    y1=0
+    z1=255
+elif co1 == 3:
+    x1=0
+    y1=255
+    z1=255
+elif co1 == 4:
+    x1=255
+    y1=0
+    z1=0
+elif co1 ==5:
+    x1=255
+    y1=204
+    z1=0
+elif co1 ==6:
+    x1=255
+    y1=0
+    z1=150
+elif co1 ==7:
+    x1=0
+    y1=255
+    z1=204
+elif co1 ==8:
+    x1=204
+    y1=0
+    z1=255
+
+co2 = int(input('두번째 색을 입력하세요.... '))
+if co2 == 1:
+    x2=0
+    y2=0
+    z2=0
+elif co2 == 2:
+    x2=0
+    y2=0
+    z2=255
+elif co2 == 3:
+    x2=0
+    y2=255
+    z2=255
+elif co2 == 4:
+    x2=255
+    y2=0
+    z2=0
+elif co2 == 5:
+    x2=255
+    y2=204
+    z2=0
+elif co2 == 6:
+    x2=255
+    y2=0
+    z2=105
+elif co2 == 7:
+    x2=0
+    y2=255
+    z2=204
+elif co2 == 8:
+    x2=204
+    y2=0
+    z2=255
+
+co3 = int(input('세번째 색을 입력하세요.... '))
+if co3 == 1:
+    x3=0
+    y3=0
+    z3=0
+elif co3 == 2:
+    x3=0
+    y3=0
+    z3=255
+elif co3 == 3:
+    x3=0
+    y3=255
+    z3=255
+elif co3 == 4:
+    x3=255
+    y3=0
+    z3=0
+elif co3 == 5:
+    x3=255
+    y3=204
+    z3=0
+elif co3 == 6:
+    x3=255
+    y3=0
+    z3=105
+elif co3 == 7:
+    x3=0
+    y3=255
+    z3=204
+elif co3 == 8:
+    x3=204
+    y3=0
+    z3=255
+
+co4 = int(input('네번째 색을 입력하세요.... '))
+if co4 == 1:
+    x4=0
+    y4=0
+    z4=0
+elif co4 == 2:
+    x4=0
+    y4=0
+    z4=255
+elif co4 == 3:
+    x4=0
+    y4=255
+    z4=255
+elif co4 == 4:
+    x4=255
+    y4=0
+    z4=0
+elif co4 == 5:
+    x4=255
+    y4=204
+    z4=0
+elif co4 == 6:
+    x4=255
+    y4=0
+    z4=105
+elif co4 == 7:
+    x4=0
+    y4=255
+    z4-204
+elif co4 == 8:
+    x4=204
+    y4=0
+    z4=255
+
+colors = [(x1,y1, z1), (x2, y2, z2), (x3, y3, z3), (x4, y4, z4)]
 colorIndex = 0
 
-# Setup the Paint interface
+# Setup the Paint interface  -> 화면에 보이는 사격형 입력
 paintWindow = np.zeros((471,636,3)) + 255
 paintWindow = cv2.rectangle(paintWindow, (40,1), (140,65), (0,0,0), 2)
 paintWindow = cv2.rectangle(paintWindow, (160,1), (255,65), colors[0], -1)
@@ -31,36 +168,36 @@ paintWindow = cv2.rectangle(paintWindow, (275,1), (370,65), colors[1], -1)
 paintWindow = cv2.rectangle(paintWindow, (390,1), (485,65), colors[2], -1)
 paintWindow = cv2.rectangle(paintWindow, (505,1), (600,65), colors[3], -1)
 cv2.putText(paintWindow, "CLEAR ALL", (49, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 2, cv2.LINE_AA)
-cv2.putText(paintWindow, "BLUE", (185, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-cv2.putText(paintWindow, "GREEN", (298, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-cv2.putText(paintWindow, "RED", (420, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-cv2.putText(paintWindow, "YELLOW", (520, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150,150,150), 2, cv2.LINE_AA)
+cv2.putText(paintWindow, "Color 1", (180, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+cv2.putText(paintWindow, "Color 2", (295, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+cv2.putText(paintWindow, "Color 3", (410, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+cv2.putText(paintWindow, "Color 4", (525, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150,150,150), 2, cv2.LINE_AA)
 
 cv2.namedWindow('Paint', cv2.WINDOW_AUTOSIZE)
 
 # Load the video
 camera = cv2.VideoCapture(0)
 
-# Keep looping
+# Keep looping -> 초인트가 화면안에 존재하면 선이 그려짐
 while True:
     # Grab the current paintWindow
     (grabbed, frame) = camera.read()
     frame = cv2.flip(frame, 1)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    # Add the coloring options to the frame
+    # Add the coloring options to the frame -> 화면에 표시되는 색상 사각형 생성 코드
     frame = cv2.rectangle(frame, (40,1), (140,65), (122,122,122), -1)
     frame = cv2.rectangle(frame, (160,1), (255,65), colors[0], -1)
     frame = cv2.rectangle(frame, (275,1), (370,65), colors[1], -1)
     frame = cv2.rectangle(frame, (390,1), (485,65), colors[2], -1)
     frame = cv2.rectangle(frame, (505,1), (600,65), colors[3], -1)
     cv2.putText(frame, "CLEAR ALL", (49, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "BLUE", (185, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "GREEN", (298, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "RED", (420, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
-    cv2.putText(frame, "YELLOW", (520, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150,150,150), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 1", (180, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 2", (295, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 3", (410, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
+    cv2.putText(frame, "Color 4", (525, 33), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (150,150,150), 2, cv2.LINE_AA)
 
-    # Check to see if we have reached the end of the video
+    # Check to see if we have reached the end of the video -> 화면에 포인트가 나가면 선이 그려지지 않음
     if not grabbed:
         break
 
@@ -71,8 +208,8 @@ while True:
     blueMask = cv2.dilate(blueMask, kernel, iterations=1)
 
     # Find contours in the image
-    (_, cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL,
-    	cv2.CHAIN_APPROX_SIMPLE)
+    (cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL,                                                 # 오류 부분 -> (_, cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL 코드 실행시 받는값이 3개인데 실제 입력값은 2개여서 오류 발생
+    	cv2.CHAIN_APPROX_SIMPLE)                                                                                     # 수정 코드 -> (cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL 입력 받는 값을 2개로 바꿔서 오류 수정
     center = None
 
     # Check to see if any contours were found
@@ -143,7 +280,7 @@ while True:
     cv2.imshow("Tracking", frame)
     cv2.imshow("Paint", paintWindow)
 
-	# If the 'q' key is pressed, stop the loop
+	# If the 'q' key is pressed, stop the loop -> q를 누르면 프로그램 종료 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
 
