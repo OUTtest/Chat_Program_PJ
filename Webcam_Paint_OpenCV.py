@@ -20,11 +20,17 @@ gindex = 0
 rindex = 0
 yindex = 0
 
-x1, y1, z1 = map(int, input('첫번째 사용할 색을 입력하세요(0~255): ').split())      # 원하는 색 입력 추가 기능 RGB 코드 입력으로 색 정함
-x2, y2, z2 = map(int, input('두번째 사용할 색을 입력하세요(0~255): ').split())
-x3, y3, z3 = map(int, input('세번째 사용할 색을 입력하세요(0~255): ').split())
-x4, y4, z4 = map(int, input('네번째 사용할 색을 입력하세요(0~255): ').split())
-colors = [(x1,y1, z1), (x2, y2, z2), (x3, y3, z3), (x4, y4, z4)]
+Black = [(0, 0, 0)]      # 몇가지의 색을 저장한 뒤 둘러오는 방식의 코드로 수정 .....
+Blue = [(0, 0, 255)]
+Yellow = [(0, 255, 255)]
+Red = [(255, 0, 0)]
+Sky = [(255, 204, 0)]
+Purple = [(255, 0, 150)]
+Lime = [(0, 255, 204)]
+Pink = [(204, 0, 255)]
+print('| 1.Black | 2.Blue | 3.Yellow | 4.Red | 5.Sky | 6.Purple | 7. Lime | 8.Pink |')
+c1, c2, c3, c4 = input('4가지의 색을 입력하세요...').split()
+colors = [(c1), (c2), (c3), (c4)]
 colorIndex = 0
 
 # Setup the Paint interface  -> 화면에 보이는 사격형 입력
